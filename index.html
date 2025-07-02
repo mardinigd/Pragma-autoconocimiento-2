@@ -19,13 +19,11 @@
 
         /* Colores Pragma */
         :root {
-            --pragma-purple: #6429CD; /* Color principal de la guía */
-            --pragma-purple-hover: #531dbc; /* Tono más oscuro para hover */
+            --pragma-purple: #6429CD;
+            --pragma-purple-hover: #531dbc;
             --pragma-dark-gray: #1d1d1b;
-            --success-bg: #D1FAE5; /* Verde de Success (Toast) */
-            --success-text: #065F46; /* Texto para Success */
-            --error-bg: #FEE2E2; /* Rojo de Error (Toast) */
-            --error-text: #991B1B; /* Texto para Error */
+            --error-bg: #FEE2E2;
+            --error-text: #991B1B;
             --error-border: #FCA5A5;
         }
 
@@ -34,8 +32,8 @@
             background-color: var(--pragma-purple);
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 9999px; /* Bordes totalmente redondeados como en la guía */
-            font-weight: 600; /* Semibold */
+            border-radius: 9999px;
+            font-weight: 600;
             box-shadow: 0 4px 15px -2px rgba(100, 41, 205, 0.4);
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
             border: none;
@@ -53,14 +51,14 @@
         /* Input de Texto (Ajustado al Design System 'Inputs.jpg') */
         .custom-input {
             background-color: white;
-            border: 1px solid #E5E7EB; /* Borde gris claro */
-            border-radius: 0.75rem; /* 12px */
-            padding: 0.875rem 1rem; /* 14px 16px */
+            border: 1px solid #E5E7EB;
+            border-radius: 0.75rem;
+            padding: 0.875rem 1rem;
             font-size: 14px;
             transition: border-color 0.2s, box-shadow 0.2s;
         }
         .custom-input::placeholder {
-            color: #9282B6; /* Placeholder color de la guía */
+            color: #9282B6;
         }
         .custom-input:focus {
             outline: none;
@@ -71,7 +69,7 @@
         /* Tarjeta de Juego (Ajustado al Design System 'Card.png') */
         .custom-card {
             background-color: white;
-            border-radius: 1rem; /* 16px */
+            border-radius: 1rem;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             border: 1px solid #F3F4F6;
         }
@@ -83,11 +81,7 @@
             -webkit-backdrop-filter: blur(28px);
             border-radius: 1rem;
             border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.15),
-                inset 0 1px 0 rgba(255, 255, 255, 0.5),
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
-                inset 0 0 36px 18px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.1), inset 0 0 36px 18px rgba(255, 255, 255, 0.2);
             position: relative;
             overflow: hidden;
         }
@@ -309,8 +303,8 @@
                 button.classList.add('correct');
                 feedbackContainer.classList.remove('hidden');
                 feedbackContainer.innerHTML = '✅ ¡Correcto!';
-                feedbackContainer.style.backgroundColor = 'var(--success-bg)';
-                feedbackContainer.style.color = 'var(--success-text)';
+                feedbackContainer.style.backgroundColor = '#D1FAE5'; // Verde claro de éxito
+                feedbackContainer.style.color = '#065F46';       // Verde oscuro de éxito
                 playSound('correct');
             } else {
                 button.classList.add('incorrect');
