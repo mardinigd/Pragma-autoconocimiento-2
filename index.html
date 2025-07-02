@@ -588,14 +588,47 @@
         }
 
         // Función: showResults()
-        // Muestra la pantalla final con la puntuación del jugador.
+        // Muestra la pantalla final y envía los resultados a Formspree.
         function showResults() {
-            gameScreen.classList.add('hidden'); // Oculta la pantalla del juego
-            resultsScreen.classList.remove('hidden'); // Muestra la pantalla de resultados
-            finalUserName.textContent = userName; // Muestra el nombre del jugador
-            scoreDisplay.textContent = score; // Muestra la puntuación
-            totalQuestionsDisplay.textContent = questions.length; // Muestra el total de preguntas
-            progressBar.style.width = '100%'; // Completa la barra de progreso
+            // 1. Muestra la pantalla de resultados (sin cambios)
+            gameScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            finalUserName.textContent = userName;
+            scoreDisplay.textContent = score;
+            totalQuestionsDisplay.textContent = questions.length;
+            progressBar.style.width = '100%';
+
+            // --- INICIO: CÓDIGO PARA ENVIAR RESULTADOS ---
+
+            // 2. Prepara los datos que quieres guardar
+            const resultsData = {
+                nombre: userName,
+                puntuacion: `${score} de ${questions.length}`,
+                respuestas_incorrectas: incorrectAnswers.map(item => 
+                    `Pregunta: '${item.question}' - Respuesta del usuario: '${item.userAnswer}'`
+                ).join('; ') || 'Ninguna, ¡todo perfecto!'
+            };
+
+            // 3. Envía los datos a tu endpoint de Formspree
+            fetch('https://formspree.io/f/xeokdoba', {
+                method: 'POST',
+                body: JSON.stringify(resultsData),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("✅ Resultados del quiz enviados con éxito a Formspree.");
+                } else {
+                    console.error("❌ Error al enviar los resultados del quiz.");
+                }
+            })
+            .catch(error => {
+                console.error("❌ Error de red al enviar resultados:", error);
+            });
+            
+            // --- FIN: CÓDIGO ---
         }
 
 
