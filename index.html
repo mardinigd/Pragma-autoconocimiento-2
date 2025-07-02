@@ -298,13 +298,17 @@
             selectedOptionButton = button;
             Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
 
+            // Muestra el tip y el botón SIGUIENTE para asegurar que siempre aparezcan
+            displayPredefinedTip(fallbackTip);
+            nextButton.classList.remove('hidden'); 
+
             if (selectedOption === correctAnswer) {
                 score++;
                 button.classList.add('correct');
                 feedbackContainer.classList.remove('hidden');
                 feedbackContainer.innerHTML = '✅ ¡Correcto!';
-                feedbackContainer.style.backgroundColor = '#D1FAE5'; // Verde claro de éxito
-                feedbackContainer.style.color = '#065F46';       // Verde oscuro de éxito
+                feedbackContainer.style.backgroundColor = '#D1FAE5'; // Verde de éxito
+                feedbackContainer.style.color = '#065F46';       // Texto para éxito
                 playSound('correct');
             } else {
                 button.classList.add('incorrect');
@@ -312,13 +316,11 @@
                 feedbackContainer.textContent = 'Incorrecto. La respuesta correcta era: ' + correctAnswer;
                 feedbackContainer.style.backgroundColor = 'var(--error-bg)';
                 feedbackContainer.style.color = 'var(--error-text)';
-                playSound('incorrect');
                 
                 incorrectAnswers.push({ question: questions[currentQuestionIndex].question, userAnswer: selectedOption, correctAnswer, tip: fallbackTip });
                 Array.from(optionsContainer.children).forEach(btn => { if (btn.textContent === correctAnswer) btn.classList.add('correct'); });
+                playSound('incorrect');
             }
-            displayPredefinedTip(fallbackTip);
-            nextButton.classList.remove('hidden');
         }
 
         function showResults() {
