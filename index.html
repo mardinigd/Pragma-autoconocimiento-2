@@ -3,200 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pragma Autoconocimiento: Juego</title>
+    <title>Pragma Autoconocimiento</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* ** Estilos Globales de la Página ** */
+        /* Estilos Globales */
         body {
-            font-family: 'Inter', sans-serif; /* Fuente principal: Inter */
-            background-color: #e0e6ff; /* Fondo general con el azul claro de Pragma */
+            font-family: 'Poppins', sans-serif;
+            background-color: #e0e6ff;
         }
 
-        /* ** Variables de Color de Pragma ** */
+        /* Colores Pragma */
         :root {
-            --pragma-purple: #531dbc;
-            --pragma-darker-purple: #440099; /* Tono más oscuro para sombra/hover de botones */
-            --pragma-light-blue: #afc3ff;
+            --pragma-purple: #6429CD; /* Color principal de la guía */
+            --pragma-purple-hover: #531dbc; /* Tono más oscuro para hover */
             --pragma-dark-gray: #1d1d1b;
-            --pragma-correct-bg: #e0e6ff; /* Fondo para respuestas correctas */
-            --pragma-correct-border: #afc3ff; /* Borde para respuestas correctas */
-            --pragma-correct-text: #1a7fff; /* Texto para respuestas correctas */
+            --success-bg: #D1FAE5; /* Verde de Success (Toast) */
+            --success-text: #065F46; /* Texto para Success */
+            --error-bg: #FEE2E2; /* Rojo de Error (Toast) */
+            --error-text: #991B1B; /* Texto para Error */
+            --error-border: #FCA5A5;
         }
 
-        /* ** Estilos de Componente: Botones Estilo Duolingo/Pragma ** */
+        /* Botón Principal (Ajustado al Design System) */
         .duolingo-button {
-            background-color: var(--pragma-purple); /* Color principal del botón */
+            background-color: var(--pragma-purple);
             color: white;
             padding: 0.75rem 1.5rem;
-            border-radius: 1.5rem; /* Bordes redondeados */
-            font-weight: bold;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
-            border-bottom: 4px solid var(--pragma-darker-purple); /* Sombra inferior para efecto 3D */
+            border-radius: 9999px; /* Bordes totalmente redondeados como en la guía */
+            font-weight: 600; /* Semibold */
+            box-shadow: 0 4px 15px -2px rgba(100, 41, 205, 0.4);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            border: none;
         }
         .duolingo-button:hover {
-            transform: translateY(-2px); /* Pequeño efecto de levantamiento al pasar el ratón */
-            background-color: var(--pragma-darker-purple); /* Oscurecer al pasar el ratón */
+            transform: translateY(-2px);
+            background-color: var(--pragma-purple-hover);
+            box-shadow: 0 6px 20px -2px rgba(100, 41, 205, 0.5);
         }
         .duolingo-button:active {
-            transform: translateY(2px); /* Efecto de "presionar" */
-            border-bottom-width: 0; /* Quitar sombra inferior al presionar */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px -2px rgba(100, 41, 205, 0.4);
         }
 
-        /* ** Estilos de Componente: Tarjeta con Efecto Glassmorphism ** */
+        /* Input de Texto (Ajustado al Design System 'Inputs.jpg') */
+        .custom-input {
+            background-color: white;
+            border: 1px solid #E5E7EB; /* Borde gris claro */
+            border-radius: 0.75rem; /* 12px */
+            padding: 0.875rem 1rem; /* 14px 16px */
+            font-size: 14px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .custom-input::placeholder {
+            color: #9282B6; /* Placeholder color de la guía */
+        }
+        .custom-input:focus {
+            outline: none;
+            border-color: var(--pragma-purple);
+            box-shadow: 0 0 0 3px rgba(100, 41, 205, 0.2);
+        }
+
+        /* Tarjeta de Juego (Ajustado al Design System 'Card.png') */
+        .custom-card {
+            background-color: white;
+            border-radius: 1rem; /* 16px */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #F3F4F6;
+        }
+
+        /* Tarjeta de Bienvenida (Glassmorphism - SIN CAMBIOS) */
         .glassmorphism-card {
-            background: rgba(255, 255, 255, 0.11); /* Fondo semitransparente */
-            backdrop-filter: blur(28px); /* Efecto de desenfoque */
-            -webkit-backdrop-filter: blur(28px); /* Compatibilidad con navegadores WebKit */
+            background: rgba(255, 255, 255, 0.11);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
             border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Borde sutil */
+            border: 1px solid rgba(255, 255, 255, 0.3);
             box-shadow:
-                0 8px 32px rgba(0, 0, 0, 0.15), /* Sombra externa */
-                inset 0 1px 0 rgba(255, 255, 255, 0.5), /* Brillo interno superior */
-                inset 0 -1px 0 rgba(255, 255, 255, 0.1), /* Sombra interna inferior */
-                inset 0 0 36px 18px rgba(255, 255, 255, 0.2); /* Resplandor interno */
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 36px 18px rgba(255, 255, 255, 0.2);
             position: relative;
-            overflow: hidden; /* Asegura que los efectos internos no se desborden */
-        }
-        /* Detalle: Reflejo superior para la tarjeta */
-        .glassmorphism-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-        }
-        /* Detalle: Reflejo lateral izquierdo para la tarjeta */
-        .glassmorphism-card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 1px;
-            height: 100%;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent, rgba(255, 255, 255, 0.3));
-        }
-
-        /* ** Estilos de Componente: Barra de Progreso ** */
-        .progress-bar-container {
-            background-color: #e0e6ff; /* Fondo de la barra de progreso */
-            border-radius: 9999px; /* Completamente redondeado */
-            height: 12px;
-            width: 100%;
             overflow: hidden;
         }
-        .progress-bar {
-            height: 100%;
-            width: 0%; /* Ancho controlado por JavaScript */
-            background-color: var(--pragma-purple); /* Color del progreso */
-            border-radius: 9999px;
-            transition: width 0.5s ease-in-out; /* Transición suave del progreso */
-        }
+        .glassmorphism-card::before, .glassmorphism-card::after { content: ''; position: absolute; }
+        .glassmorphism-card::before { top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent); }
+        .glassmorphism-card::after { top: 0; left: 0; width: 1px; height: 100%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent, rgba(255, 255, 255, 0.3)); }
 
-        /* ** Estilos de Componente: Botones de Opción de Pregunta ** */
-        .option-button {
-            background-color: white;
-            border: 2px solid #e1e6f0; /* Borde predeterminado */
-            color: var(--pragma-dark-gray); /* Color de texto */
-            padding: 1rem;
-            border-radius: 0.75rem;
-            font-weight: 500;
-            transition: background-color 0.2s, border-color 0.2s;
-            text-align: left;
-            width: 100%;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
-        .option-button:hover {
-            background-color: #eef1f7; /* Fondo al pasar el ratón */
-            border-color: var(--pragma-light-blue); /* Borde al pasar el ratón */
-        }
-        /* Estado: Opción Correcta */
-        .option-button.correct {
-            background-color: var(--pragma-correct-bg);
-            border-color: var(--pragma-correct-border);
-            color: var(--pragma-correct-text);
-            box-shadow: 0 2px 4px rgba(26, 127, 255, 0.2);
-        }
-        /* Estado: Opción Incorrecta */
-        .option-button.incorrect {
-            background-color: #f8d7da; /* Rojo claro para feedback visual */
-            border-color: #dc3545; /* Borde rojo */
-            color: #721c24;
-            box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2);
-        }
+        /* Barra de Progreso */
+        .progress-bar-container { background-color: #e0e6ff; border-radius: 9999px; height: 12px; width: 100%; overflow: hidden; }
+        .progress-bar { height: 100%; width: 0%; background-color: var(--pragma-purple); border-radius: 9999px; transition: width 0.5s ease-in-out; }
 
-        /* ** Estilos de Componente: Modal de Mensajes ** */
-        .modal {
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente oscuro */
-            backdrop-filter: blur(5px); /* Efecto de desenfoque para el fondo */
-        }
-        .modal-content {
-            background-color: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-        }
+        /* Botones de Opción (Estilos de estado refinados) */
+        .option-button { background-color: white; border: 2px solid #e1e6f0; color: var(--pragma-dark-gray); padding: 1rem; border-radius: 0.75rem; font-weight: 500; transition: background-color 0.2s, border-color 0.2s; text-align: left; width: 100%; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
+        .option-button:hover { border-color: var(--pragma-purple); }
+        .option-button.correct { background-color: #F0FFF4; border-color: #9AE6B4; color: #276749; box-shadow: 0 2px 4px rgba(72, 187, 120, 0.2); }
+        .option-button.incorrect { background-color: var(--error-bg); border-color: var(--error-border); color: var(--error-text); box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2); }
 
-        /* Estilos de ejemplo para mensajes de chat (no usados directamente en este quiz) */
-        .chat-message-user {
-            background-color: #e0e6ff;
-            border-radius: 0.75rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            align-self: flex-end;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
-        .chat-message-ai {
-            background-color: #afc3ff;
-            border-radius: 0.75rem;
-            padding: 0.75rem;
-            margin-bottom: 0.5rem;
-            align-self: flex-start;
-            max-width: 80%;
-            word-wrap: break-word;
-        }
+        /* Modal de Mensajes */
+        .modal { background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); }
+        .modal-content { background-color: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }
 
-        /* ** Estilos de Enfoque (Focus) y Autocompletado ** */
-        /* Estilo de enfoque para campos de texto */
-        input[type="text"]:focus {
-            border-color: #1a7fff; /* Borde azul vibrante de Pragma al enfocar */
-            outline: none; /* Eliminar contorno por defecto del navegador */
-            box-shadow: 0 0 0 2px rgba(26, 127, 255, 0.3); /* Sombra de enfoque */
-            background-color: white !important; /* Mantener fondo blanco en foco */
-        }
-        /* Solución para autocompletado en navegadores WebKit */
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover,
-        input:-webkit-autofill:focus,
-        input:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
-            box-shadow: 0 0 0px 1000px white inset !important;
-            -webkit-text-fill-color: var(--pragma-dark-gray) !important; /* Mantener color de texto */
-        }
-        /* Estilo de enfoque para botones generales */
-        button:focus {
-            outline: none; /* Eliminar contorno por defecto del navegador */
-            box-shadow: 0 0 0 3px rgba(83, 29, 188, 0.4); /* Sombra de enfoque con color Pragma */
-        }
-        /* Estilo de enfoque para botones de opción específicos */
-        .option-button:focus {
-            outline: none; /* Eliminar contorno por defecto del navegador */
-            box-shadow: 0 0 0 2px var(--pragma-purple); /* Sombra de enfoque con color Pragma */
-            border-color: var(--pragma-purple); /* Borde con color Pragma */
-        }
+        /* Estilos de Foco y Autocompletado */
+        button:focus { outline: none; box-shadow: 0 0 0 3px rgba(100, 41, 205, 0.4); }
+        .option-button:focus { outline: none; box-shadow: 0 0 0 2px var(--pragma-purple); border-color: var(--pragma-purple); }
+        input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { -webkit-box-shadow: 0 0 0px 1000px white inset !important; box-shadow: 0 0 0px 1000px white inset !important; -webkit-text-fill-color: var(--pragma-dark-gray) !important; }
 
-        /* ** Estilos de Componente: Logo SVG de Pragma ** */
-        .pragma-logo-svg .cls-1 {
-            fill: var(--pragma-purple); /* Color morado para el logo */
-        }
-        .pragma-logo-svg .cls-2 {
-            fill: var(--pragma-dark-gray); /* Color gris oscuro para el texto del logo */
-        }
+        /* Logo SVG */
+        .pragma-logo-svg .cls-1 { fill: var(--pragma-purple); }
+        .pragma-logo-svg .cls-2 { fill: var(--pragma-dark-gray); }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -204,20 +124,8 @@
     <div id="welcomeScreen" class="flex flex-col items-center justify-center max-w-md w-full p-6 glassmorphism-card">
         <div class="mb-4 w-40 h-auto">
             <svg id="Capa_1" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1221.17 348.04" class="pragma-logo-svg">
-                <defs>
-                    <style>
-                        /* Sobrescribimos los colores predefinidos del SVG con variables CSS de Pragma */
-                        .cls-1 { fill: var(--pragma-purple); stroke-width: 0px; }
-                        .cls-2 { fill: var(--pragma-dark-gray); stroke-width: 0px; }
-                    </style>
-                </defs>
-                <g>
-                    <path class="cls-2" d="m0,278.95V39.45h30.61v24.29c12.61-16.62,35.92-27.65,58.83-27.65,46.93,0,83.69,38.67,83.69,88.03s-36.76,88.03-83.69,88.03c-22.91,0-46.22-11.03-58.83-27.65v94.45H0ZM85.04,64.11c-32.92,0-56.8,25.24-56.8,60.01s23.89,60.01,56.8,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/>
-                    <path class="cls-2" d="m210.84,208.79V39.45h30.61v29.08c8.42-20.21,29.3-30.76,46.65-30.76,4.81,0,8.93.42,13.36,1.36l.59.13v31.56l-1.01-.38c-5.04-1.87-9.58-2.64-15.65-2.64-28.85,0-43.94,28.67-43.94,56.99v84h-30.61Z"/>
-                    <path class="cls-2" d="m407.84,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.93,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/>
-                    <path class="cls-2" d="m979.72,208.79v-99.44c0-28.33-12.25-45.24-32.77-45.24-27.72,0-45.63,23.82-45.63,60.68v84h-30.61v-99.44c0-28.33-12.12-45.24-32.43-45.24-27.5,0-45.97,24.39-45.97,60.68v84h-30.61V39.45h30.61v23.83c10.53-17.08,29.15-27.19,50.37-27.19,24.13,0,43.05,12.62,52.16,34.71,9.62-21.46,30.71-34.71,55.49-34.71,36.44,0,59.99,27.04,59.99,68.89v103.81h-30.61Z"/>
-                    <path class="cls-2" d="m1131.72,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.92,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/>
-                </g>
+                 <defs><style>.cls-1{fill:var(--pragma-purple);stroke-width:0px;}.cls-2{fill:var(--pragma-dark-gray);stroke-width:0px;}</style></defs>
+                <g><path class="cls-2" d="m0,278.95V39.45h30.61v24.29c12.61-16.62,35.92-27.65,58.83-27.65,46.93,0,83.69,38.67,83.69,88.03s-36.76,88.03-83.69,88.03c-22.91,0-46.22-11.03-58.83-27.65v94.45H0ZM85.04,64.11c-32.92,0-56.8,25.24-56.8,60.01s23.89,60.01,56.8,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m210.84,208.79V39.45h30.61v29.08c8.42-20.21,29.3-30.76,46.65-30.76,4.81,0,8.93.42,13.36,1.36l.59.13v31.56l-1.01-.38c-5.04-1.87-9.58-2.64-15.65-2.64-28.85,0-43.94,28.67-43.94,56.99v84h-30.61Z"/><path class="cls-2" d="m407.84,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.93,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m979.72,208.79v-99.44c0-28.33-12.25-45.24-32.77-45.24-27.72,0-45.63,23.82-45.63,60.68v84h-30.61v-99.44c0-28.33-12.12-45.24-32.43-45.24-27.5,0-45.97,24.39-45.97,60.68v84h-30.61V39.45h30.61v23.83c10.53-17.08,29.15-27.19,50.37-27.19,24.13,0,43.05,12.62,52.16,34.71,9.62-21.46,30.71-34.71,55.49-34.71,36.44,0,59.99,27.04,59.99,68.89v103.81h-30.61Z"/><path class="cls-2" d="m1131.72,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.92,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/></g>
                 <path class="cls-1" d="m660.43,211.68c36.54-12.71,62.81-47.23,62.81-87.74,0-30.67-15.06-57.91-38.23-74.85,1.86.44,3.79.69,5.79.69,13.86,0,25.1-11.14,25.1-24.89s-11.24-24.89-25.1-24.89-25.1,11.14-25.1,24.89c0,6.11,2.23,11.71,5.92,16.04-12.68-6.35-26.99-9.96-42.14-9.96-51.7,0-93.76,41.71-93.76,92.97s40.93,91.8,91.65,92.92c-24.63,10.43-41.93,34.68-41.93,62.86,0,37.67,30.91,68.32,68.9,68.32s68.9-30.65,68.9-68.32c0-35.64-27.67-64.97-62.81-68.04Zm-95.93-87.74c0-35.53,29.15-64.44,64.99-64.44s64.99,28.91,64.99,64.44-29.15,64.44-64.99,64.44-64.99-28.91-64.99-64.44Zm89.85,195.57c-22.13,0-40.13-17.85-40.13-39.79s18-39.79,40.13-39.79,40.13,17.85,40.13,39.79-18,39.79-40.13,39.79Z"/>
             </svg>
         </div>
@@ -230,513 +138,9 @@
                 id="userNameInput" 
                 name="nombre"
                 placeholder="Tu nombre" 
-                class="w-full p-3 mb-6 border-2 border-gray-300 rounded-lg text-lg focus:outline-none"
+                class="w-full mb-6 custom-input"
                 required>
 
             <button id="startButton" type="submit" class="duolingo-button w-full">Iniciar Test</button>
         </form>
-        </div>
-
-    <div id="gameScreen" class="hidden flex flex-col items-center justify-center max-w-xl w-full p-6 bg-white rounded-xl shadow-lg relative">
-        <div class="w-full flex items-center justify-between mb-6">
-            <span id="userNameDisplay" class="text-gray-700 text-lg font-semibold"></span>
-            <div class="progress-bar-container flex-grow ml-4">
-                <div id="progressBar" class="progress-bar"></div>
-            </div>
-            <span id="questionCount" class="text-gray-600 text-md ml-4"></span>
-        </div>
-
-        <h2 id="questionText" class="text-2xl font-bold text-gray-800 mb-8 text-center"></h2>
-        <div id="optionsContainer" class="w-full grid grid-cols-1 gap-4">
-            </div>
-
-        <div id="feedbackContainer" class="mt-6 p-4 w-full text-center text-white font-semibold rounded-lg hidden" style="background-color: #531dbc;" role="alert" aria-live="polite"></div>
-        <div id="tipContainer" class="mt-4 p-4 w-full text-gray-700 bg-blue-100 border border-blue-200 rounded-lg hidden text-sm" role="status" aria-live="polite"></div>
-
-        <button id="nextButton" class="duolingo-button w-full mt-8 hidden">Siguiente</button>
     </div>
-
-    <div id="resultsScreen" class="hidden flex flex-col items-center justify-center max-w-md w-full p-6 bg-white rounded-xl shadow-lg text-center">
-        <h2>¡Felicidades, <span id="finalUserName"></span>!</h2>
-        <p>Has completado el módulo de autoconocimiento.</p>
-        <p>Tu Puntuación: <span id="scoreDisplay">0</span>/<span id="totalQuestionsDisplay">0</span></p>
-        <p>Sigue cultivando tu autoconocimiento para ser el piloto de tu destino.</p>
-        <button id="reviewQuizButton" class="duolingo-button w-full mt-4">Revisar Respuestas y Tips</button>
-        <button id="restartButton" class="duolingo-button w-full mt-2">Volver a Jugar</button>
-        <div class="mt-8">
-            <svg class="w-20 h-20" fill="var(--pragma-purple)" viewBox="0 0 24 24">
-                <path d="M12 2l-5 10h10l-5-10zM12 15c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-            </svg>
-        </div>
-    </div>
-
-    <div id="reviewScreen" class="hidden flex flex-col items-center justify-center max-w-xl w-full p-6 bg-white rounded-xl shadow-lg relative overflow-y-auto" style="max-height: 90vh;">
-        <h2>Revisa tus respuestas y obtén tips</h2>
-        
-        <h3>Preguntas a reforzar:</h3>
-        <div id="incorrectAnswersContainer" class="w-full flex flex-col gap-4 mb-8">
-            </div>
-
-        <h3>Cosas a Reforzar:</h3>
-        <ul id="reinforceConcepts" class="list-disc list-inside text-gray-700 mb-8 w-full pl-4">
-            <li>Definición e importancia del autoconocimiento.</li>
-            <li>El papel de las emociones en la toma de decisiones.</li>
-            <li>Herramientas clave para cultivar el autoconocimiento.</li>
-            <li>La resiliencia consciente y la autoaceptación.</li>
-            <li>La conexión entre autoconocimiento y propósito (Polo Sur).</li>
-        </ul>
-
-        <button id="restartFromReviewButton" class="duolingo-button w-full mt-4">Volver a Jugar</button>
-    </div>
-
-    <div id="messageModal" class="fixed inset-0 flex items-center justify-center z-50 hidden modal" aria-modal="true" role="dialog" aria-labelledby="modalMessage">
-        <div class="modal-content text-center">
-            <p id="modalMessage" class="text-lg font-semibold text-gray-800 mb-6"></p>
-            <button id="modalCloseButton" class="duolingo-button">Cerrar</button>
-        </div>
-    </div>
-
-    <script>
-        // ** Lógica Principal del Juego **
-
-        // ** Datos del Quiz: Preguntas y Respuestas **
-        const questions = [
-            {
-                question: "¿Cuál es el propósito principal del autoconocimiento?",
-                options: [
-                    "A. Mejorar la memoria",
-                    "B. Conocerse y tomar decisiones alineadas",
-                    "C. Ser más competitivo",
-                    "D. Evitar problemas"
-                ],
-                correctAnswer: "B. Conocerse y tomar decisiones alineadas",
-                fallbackTip: "El autoconocimiento es tu brújula para vivir con propósito y autenticidad. No se trata solo de recordar más, sino de entender quién eres y cómo decides. (Página 4 del documento)."
-            },
-            {
-                question: "¿Qué autor afirma que el autoconocimiento es la base de la inteligencia emocional?",
-                options: [
-                    "A. Stephen Covey",
-                    "B. Carl Rogers",
-                    "C. Daniel Goleman",
-                    "D. Peter Drucker"
-                ],
-                correctAnswer: "C. Daniel Goleman",
-                fallbackTip: "Goleman sostiene que si no entiendes tus emociones, no puedes gestionarlas. Covey habla de hábitos, Rogers de coherencia personal, y Drucker de gestión profesional, pero Goleman conecta directamente con las emociones. (Página 5 del documento)."
-            },
-            {
-                question: "¿Cuál de estos beneficios NO está relacionado directamente con el autoconocimiento?",
-                options: [
-                    "A. Tomar decisiones alineadas",
-                    "B. Mejorar relaciones",
-                    "C. Aumentar el estrés",
-                    "D. Confiar más en uno mismo"
-                ],
-                correctAnswer: "C. Aumentar el estrés",
-                fallbackTip: "El autoconocimiento reduce el estrés, no lo aumenta. Conocerte te ayuda a decidir lo que realmente va contigo, mejorar tus relaciones y confiar más en ti mismo. (Página 9 y 10 del documento)."
-            },
-            {
-                question: "¿Qué pasa cuando ignoras cómo reaccionas ante las emociones?",
-                options: [
-                    "A. Tomas mejores decisiones",
-                    "B. Reacciones de forma impulsiva",
-                    "C. Eres más proactivo",
-                    "D. Ganas confianza"
-                ],
-                correctAnswer: "B. Reacciones de forma impulsiva",
-                fallbackTip: "Entender tus emociones es clave para responder con intención, no con impulso. Si no sabes lo que sientes, puedes decidir por impulso, no con intención, y la proactividad nace del autoconocimiento. (Página 5 y 9 del documento)."
-            },
-            {
-                question: "¿Qué frase representa mejor la resiliencia consciente?",
-                options: [
-                    "A. Evitar siempre el conflicto",
-                    "B. Aceptar emociones sin analizarlas",
-                    "C. Conocer tus reacciones y adaptarte",
-                    "D. Ignorar lo negativo"
-                ],
-                correctAnswer: "C. Conocer tus reacciones y adaptarte",
-                fallbackTip: "La resiliencia real nace de conocerte y moverte con intención. Evitar conflictos no siempre ayuda; hay que entender y usar esas emociones, y lo incómodo también enseña. (Página 12 del documento)."
-            },
-            {
-                question: "¿Qué concepto representa mejor el “Polo Sur”?",
-                options: [
-                    "A. El punto donde lo que haces, eres y quieres se juntan",
-                    "B. El lugar más frío de tu carrera",
-                    "C. Un estilo de liderazgo",
-                    "D. Un método de productividad"
-                ],
-                correctAnswer: "A. El punto donde lo que haces, eres y quieres se juntan",
-                fallbackTip: "El Polo Sur es tu propósito alineado y auténtico, no un lugar físico, una técnica de liderazgo o de productividad. Es el punto donde tu esencia se manifiesta plenamente. (Página 3 del documento)."
-            },
-            {
-                question: "¿Cuál de estas NO es una herramienta recomendada para el autoconocimiento?",
-                options: [
-                    "A. Diario personal",
-                    "B. Mindfulness",
-                    "C. Test CliftonStrengths",
-                    "D. Ver televisión"
-                ],
-                correctAnswer: "D. Ver televisión",
-                fallbackTip: "Aunque entretiene, ver televisión no es una herramienta directa para conocerte. Escribir un diario, practicar mindfulness y los tests de fortalezas sí lo son. (Página 14-16 del documento)."
-            },
-            {
-                question: "¿Qué beneficio trae escribir lo que sientes diariamente?",
-                options: [
-                    "A. Aumenta el estrés",
-                    "B. Ignora patrones",
-                    "C. Te conecta con tus emociones",
-                    "D. Mejora tu ortografía"
-                ],
-                correctAnswer: "C. Te conecta con tus emociones",
-                fallbackTip: "Escribir es una forma poderosa de autoconocimiento. En realidad, escribir libera y ordena tus pensamientos, te ayuda a ver patrones emocionales y el foco es entenderte mejor emocionalmente. (Página 15 del documento)."
-            }
-        ];
-
-        // ** Referencias a Elementos HTML (DOM) **
-        // Elementos de la pantalla de bienvenida
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const userNameInput = document.getElementById('userNameInput');
-        const startButton = document.getElementById('startButton');
-        
-        // Elementos de la pantalla de juego
-        const gameScreen = document.getElementById('gameScreen');
-        const userNameDisplay = document.getElementById('userNameDisplay');
-        const progressBar = document.getElementById('progressBar');
-        const questionCount = document.getElementById('questionCount');
-        const questionText = document.getElementById('questionText');
-        const optionsContainer = document.getElementById('optionsContainer');
-        const feedbackContainer = document.getElementById('feedbackContainer');
-        const tipContainer = document.getElementById('tipContainer');
-        const nextButton = document.getElementById('nextButton');
-        
-        // Elementos de la pantalla de resultados
-        const resultsScreen = document.getElementById('resultsScreen');
-        const finalUserName = document.getElementById('finalUserName');
-        const scoreDisplay = document.getElementById('scoreDisplay');
-        const totalQuestionsDisplay = document.getElementById('totalQuestionsDisplay');
-        const reviewQuizButton = document.getElementById('reviewQuizButton'); 
-        const restartButton = document.getElementById('restartButton');
-
-        // Elementos de la pantalla de revisión
-        const reviewScreen = document.getElementById('reviewScreen'); 
-        const incorrectAnswersContainer = document.getElementById('incorrectAnswersContainer');
-        const restartFromReviewButton = document.getElementById('restartFromReviewButton');
-
-        // Elementos del modal de mensajes
-        const messageModal = document.getElementById('messageModal');
-        const modalMessage = document.getElementById('modalMessage');
-        const modalCloseButton = document.getElementById('modalCloseButton');
-
-        // ** Variables de Estado del Juego **
-        let currentQuestionIndex = 0; // Controla qué pregunta se está mostrando
-        let score = 0; // Lleva la cuenta de las respuestas correctas
-        let userName = ''; // Almacena el nombre ingresado por el usuario
-        let selectedOptionButton = null; // Referencia al botón de opción que el usuario seleccionó
-        let incorrectAnswers = []; // Lista para guardar las preguntas respondidas incorrectamente
-
-        // Contexto de audio para generar sonidos (de correcto/incorrecto)
-        let audioContext;
-
-        // ** Funciones de Utilidad **
-
-        // Función: showModal(message)
-        // Muestra un modal con un mensaje dado, reemplazando los alerts.
-        function showModal(message) {
-            modalMessage.textContent = message;
-            messageModal.classList.remove('hidden'); 
-            messageModal.classList.add('flex'); // Hace visible el modal y lo centra
-        }
-
-        // Función: playCorrectSound()
-        // Reproduce un sonido indicando una respuesta correcta.
-        function playCorrectSound() {
-            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.type = 'sine';
-            oscillator.frequency.setValueAtTime(880, audioContext.currentTime); // Nota A5
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15); // Desvanecimiento
-
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.15);
-        }
-
-        // Función: playIncorrectSound()
-        // Reproduce un sonido indicando una respuesta incorrecta.
-        function playIncorrectSound() {
-            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.type = 'triangle';
-            oscillator.frequency.setValueAtTime(220, audioContext.currentTime); // Nota A3
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2); // Desvanecimiento
-
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.2);
-        }
-
-        // Función: displayPredefinedTip(tip)
-        // Muestra el tip (pista/explicación) asociado a la pregunta.
-        function displayPredefinedTip(tip) {
-            tipContainer.classList.remove('hidden');
-            tipContainer.textContent = `🧠 Tip: ${tip}`;
-        }
-
-        // Función: updateProgressBar()
-        // Actualiza visualmente el ancho de la barra de progreso.
-        function updateProgressBar() {
-            const progress = (currentQuestionIndex / questions.length) * 100;
-            progressBar.style.width = `${progress}%`;
-        }
-
-        // Función: restartGame()
-        // Reinicia todas las variables de estado del juego y vuelve a la pantalla de bienvenida.
-        function restartGame() {
-            currentQuestionIndex = 0;
-            score = 0;
-            userName = '';
-            incorrectAnswers = []; 
-            userNameInput.value = ''; 
-            reviewScreen.classList.add('hidden'); // Asegura que la pantalla de revisión esté oculta
-            resultsScreen.classList.add('hidden'); // Asegura que la pantalla de resultados esté oculta
-            welcomeScreen.classList.remove('hidden'); // Muestra la pantalla de inicio
-        }
-
-
-        // ** Funciones Centrales del Juego **
-
-        // Función: loadQuestion()
-        // Carga la pregunta actual en la interfaz del juego.
-        function loadQuestion() {
-            // Reinicia los elementos visuales para la nueva pregunta
-            optionsContainer.innerHTML = ''; // Limpia opciones anteriores
-            feedbackContainer.classList.add('hidden'); // Oculta el mensaje de feedback
-            tipContainer.classList.add('hidden'); // Oculta el tip
-            nextButton.classList.add('hidden'); // Oculta el botón "Siguiente"
-            selectedOptionButton = null; // Reinicia la opción seleccionada
-
-            const currentQuestion = questions[currentQuestionIndex];
-            questionText.textContent = currentQuestion.question; // Muestra la pregunta
-            questionCount.textContent = `${currentQuestionIndex + 1}/${questions.length}`; // Actualiza el contador
-            updateProgressBar(); // Actualiza la barra de progreso
-
-            // Crea los botones para cada opción de respuesta
-            currentQuestion.options.forEach(option => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option-button');
-                button.addEventListener('click', () => selectOption(button, option, currentQuestion.correctAnswer, currentQuestion.fallbackTip));
-                optionsContainer.appendChild(button);
-            });
-        }
-
-        // Función: selectOption(button, selectedOption, correctAnswer, fallbackTip)
-        // Procesa la opción seleccionada por el usuario, actualiza la puntuación y muestra feedback.
-        async function selectOption(button, selectedOption, correctAnswer, fallbackTip) {
-            // Evita múltiples selecciones por clics rápidos
-            if (selectedOptionButton) {
-                return;
-            }
-
-            selectedOptionButton = button; // Guarda el botón que se seleccionó
-
-            // Deshabilita todos los botones para evitar nuevas selecciones
-            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
-
-            if (selectedOption === correctAnswer) {
-                score++; // Incrementa la puntuación
-                button.classList.add('correct'); // Aplica estilo de "correcto"
-                feedbackContainer.classList.remove('hidden');
-                feedbackContainer.textContent = '¡Correcto!';
-                feedbackContainer.style.backgroundColor = '#531dbc'; 
-                playCorrectSound(); // Reproduce sonido de éxito
-            } else {
-                button.classList.add('incorrect'); // Aplica estilo de "incorrecto"
-                feedbackContainer.classList.remove('hidden');
-                feedbackContainer.textContent = 'Incorrecto. La respuesta correcta era: ' + correctAnswer;
-                feedbackContainer.style.backgroundColor = '#dc3545';
-                playIncorrectSound(); // Reproduce sonido de error
-                
-                // Guarda la pregunta incorrecta para la sección de revisión
-                incorrectAnswers.push({
-                    question: questions[currentQuestionIndex].question,
-                    userAnswer: selectedOption,
-                    correctAnswer: correctAnswer,
-                    tip: fallbackTip
-                });
-
-                // Resalta la respuesta correcta si el usuario se equivocó
-                Array.from(optionsContainer.children).forEach(btn => {
-                    if (btn.textContent === correctAnswer) {
-                        btn.classList.add('correct');
-                    }
-                });
-            }
-
-            displayPredefinedTip(fallbackTip); // Muestra el tip inmediatamente
-
-            nextButton.classList.remove('hidden'); // Hace visible el botón "Siguiente"
-        }
-
-        // Función: showResults()
-        // Muestra la pantalla final y envía los resultados a Formspree.
-        function showResults() {
-            // 1. Muestra la pantalla de resultados (sin cambios)
-            gameScreen.classList.add('hidden');
-            resultsScreen.classList.remove('hidden');
-            finalUserName.textContent = userName;
-            scoreDisplay.textContent = score;
-            totalQuestionsDisplay.textContent = questions.length;
-            progressBar.style.width = '100%';
-
-            // --- INICIO: CÓDIGO PARA ENVIAR RESULTADOS ---
-
-            // 2. Prepara los datos que quieres guardar
-            const resultsData = {
-                nombre: userName,
-                puntuacion: `${score} de ${questions.length}`,
-                respuestas_incorrectas: incorrectAnswers.map(item => 
-                    `Pregunta: '${item.question}' - Respuesta del usuario: '${item.userAnswer}'`
-                ).join('; ') || 'Ninguna, ¡todo perfecto!'
-            };
-
-            // 3. Envía los datos a tu endpoint de Formspree
-            fetch('https://formspree.io/f/xeokdoba', {
-                method: 'POST',
-                body: JSON.stringify(resultsData),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log("✅ Resultados del quiz enviados con éxito a Formspree.");
-                } else {
-                    console.error("❌ Error al enviar los resultados del quiz.");
-                }
-            })
-            .catch(error => {
-                console.error("❌ Error de red al enviar resultados:", error);
-            });
-            
-            // --- FIN: CÓDIGO ---
-        }
-
-
-        // ** Manejadores de Eventos **
-
-        // Evento para el botón "Cerrar" del Modal
-        modalCloseButton.addEventListener('click', () => {
-            messageModal.classList.add('hidden');
-            messageModal.classList.remove('flex'); 
-        });
-
-        // Referencia al formulario de bienvenida
-        const welcomeForm = document.getElementById('welcomeForm');
-
-        // Evento para el envío del formulario
-        welcomeForm.addEventListener('submit', function(event) {
-            // 1. Prevenir que la página se recargue
-            event.preventDefault();
-
-            userName = userNameInput.value.trim();
-            if (!userName) {
-                showModal('Por favor, ingresa tu nombre para comenzar.');
-                return;
-            }
-
-            // 2. Preparar datos para enviar a Formspree
-            const formData = new FormData(welcomeForm);
-            const formAction = welcomeForm.getAttribute('action');
-
-            // 3. Enviar los datos a Formspree sin recargar la página
-            fetch(formAction, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    console.log("✅ Nombre enviado a Formspree con éxito.");
-                    // Si todo salió bien, inicia el juego
-                    welcomeScreen.classList.add('hidden');
-                    gameScreen.classList.remove('hidden');
-                    userNameDisplay.textContent = `¡Hola, ${userName}!`;
-                    loadQuestion();
-                } else {
-                    // Si Formspree da un error
-                    response.json().then(data => {
-                        if (Object.hasOwn(data, 'errors')) {
-                            const errorMessages = data["errors"].map(error => error["message"]).join(", ");
-                            showModal(`Oops! Hubo un problema: ${errorMessages}`);
-                        } else {
-                            showModal("Oops! Hubo un problema al enviar tu nombre.");
-                        }
-                    });
-                }
-            })
-            .catch(error => {
-                // Si hay un error de red
-                console.error("❌ Error al enviar a Formspree:", error);
-                showModal("Ocurrió un error de red. Por favor, revisa tu conexión.");
-            });
-        });
-
-
-        // Evento para el botón "Siguiente" (para avanzar de pregunta o finalizar)
-        nextButton.addEventListener('click', () => {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                loadQuestion(); // Carga la siguiente pregunta
-            } else {
-                showResults(); // Muestra resultados si no hay más preguntas
-            }
-        });
-
-        // Evento para el botón "Revisar Respuestas y Tips"
-        reviewQuizButton.addEventListener('click', () => {
-            resultsScreen.classList.add('hidden'); // Oculta la pantalla de resultados
-            reviewScreen.classList.remove('hidden'); // Muestra la pantalla de revisión
-            incorrectAnswersContainer.innerHTML = ''; // Limpia contenido anterior
-
-            if (incorrectAnswers.length === 0) {
-                incorrectAnswersContainer.innerHTML = '<p class="text-gray-600 text-center">¡Excelente! Respondiste todas las preguntas correctamente.</p>';
-            } else {
-                // Genera dinámicamente la lista de preguntas incorrectas con sus detalles
-                incorrectAnswers.forEach((answer, index) => {
-                    const reviewItem = document.createElement('div');
-                    reviewItem.classList.add('bg-gray-50', 'p-4', 'rounded-lg', 'border', 'border-gray-200');
-                    reviewItem.innerHTML = `
-                        <p class="font-semibold text-lg mb-2">Pregunta ${index + 1}: ${answer.question}</p>
-                        <p class="text-red-600 mb-1">Tu respuesta: ${answer.userAnswer} <span class="font-semibold">(Incorrecta)</span></p>
-                        <p class="text-blue-600 mb-2">Respuesta correcta: ${answer.correctAnswer}</p>
-                        <p class="text-gray-700 text-sm">🧠 Tip: ${answer.tip}</p>
-                    `;
-                    incorrectAnswersContainer.appendChild(reviewItem);
-                });
-            }
-        });
-
-        // Evento para el botón "Volver a Jugar" desde la pantalla de revisión
-        restartFromReviewButton.addEventListener('click', () => {
-            restartGame();
-        });
-
-        // Evento para el botón "Volver a Jugar" desde la pantalla de resultados
-        restartButton.addEventListener('click', () => {
-            restartGame();
-        });
-    </script>
-</body>
-</html>
