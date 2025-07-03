@@ -125,7 +125,7 @@
         </div>
         <h1>Test de Autoconocimiento</h1>
         <p class="text-center mb-4">Antes de empezar, por favor ingresa tu nombre:</p>
-        
+
         <form id="welcomeForm" action="https://formspree.io/f/xeokdoba" method="POST" class="w-full">
             <input 
                 type="text" 
@@ -155,11 +155,11 @@
         </div>
 
         <h2 id="questionText" class="text-2xl font-bold text-gray-800 mb-8 text-center"></h2>
-        
+
         <div id="optionsContainer" class="w-full grid grid-cols-1 gap-4"></div>
 
         <div id="feedbackContainer" class="mt-6 p-4 w-full text-center font-semibold rounded-lg hidden" role="alert" aria-live="polite"></div>
-        
+
         <div id="tipContainer" class="mt-4 p-4 w-full text-gray-600 bg-gray-50 border border-gray-200 rounded-lg hidden text-sm" role="status" aria-live="polite"></div>
 
         <button id="nextButton" class="duolingo-button w-full mt-8 hidden">Siguiente</button>
@@ -176,10 +176,10 @@
         <p class="mt-2">Has completado el módulo de autoconocimiento.</p>
         <p class="mt-4 text-lg">Tu Puntuación: <span id="scoreDisplay" class="font-bold">0</span>/<span id="totalQuestionsDisplay" class="font-bold">0</span></p>
         <p class="mt-2">Sigue cultivando tu autoconocimiento para ser el piloto de tu destino.</p>
-        
+
         <button id="reviewQuizButton" class="duolingo-button w-full mt-6">Revisar Respuestas y Tips</button>
         <button id="restartButton" class="duolingo-button w-full mt-2">Volver a Jugar</button>
-        
+
         <div class="mt-8">
             <svg class="w-20 h-20 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2l-5 10h10l-5-10zM12 15c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
@@ -195,7 +195,7 @@
             </svg>
         </div>
         <h2 class="text-2xl font-bold">Revisa tus respuestas y obtén tips</h2>
-        
+
         <h3 class="text-xl font-semibold mt-6 mb-2 self-start">Preguntas a reforzar:</h3>
         <div id="incorrectAnswersContainer" class="w-full flex flex-col gap-4 mb-8"></div>
 
@@ -265,25 +265,29 @@
         }
 
         function playSound(type) {
-            if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            try {
+                if (!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
 
-            if (type === 'correct') {
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
-                oscillator.stop(audioContext.currentTime + 0.15);
-            } else {
-                oscillator.type = 'triangle';
-                oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
-                oscillator.stop(audioContext.currentTime + 0.2);
+                if (type === 'correct') {
+                    oscillator.type = 'sine';
+                    oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.15);
+                    oscillator.stop(audioContext.currentTime + 0.15);
+                } else {
+                    oscillator.type = 'triangle';
+                    oscillator.frequency.setValueAtTime(220, audioContext.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.2);
+                    oscillator.stop(audioContext.currentTime + 0.2);
+                }
+                oscillator.start(audioContext.currentTime);
+            } catch (e) {
+                console.error("No se pudo reproducir el sonido:", e);
             }
-            oscillator.start(audioContext.currentTime);
         }
 
         function displayPredefinedTip(tip) { tipContainer.classList.remove('hidden'); tipContainer.textContent = `🧠 Tip: ${tip}`; }
@@ -316,7 +320,6 @@
             selectedOptionButton = button;
             Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
 
-            // Muestra el tip y el botón SIGUIENTE para asegurar que siempre aparezcan
             displayPredefinedTip(fallbackTip);
             nextButton.classList.remove('hidden'); 
 
@@ -325,8 +328,8 @@
                 button.classList.add('correct');
                 feedbackContainer.classList.remove('hidden');
                 feedbackContainer.innerHTML = '✅ ¡Correcto!';
-                feedbackContainer.style.backgroundColor = '#D1FAE5'; // Verde de éxito
-                feedbackContainer.style.color = '#065F46';       // Texto para éxito
+                feedbackContainer.style.backgroundColor = '#D1FAE5';
+                feedbackContainer.style.color = '#065F46';
                 playSound('correct');
             } else {
                 button.classList.add('incorrect');
@@ -334,7 +337,7 @@
                 feedbackContainer.textContent = 'Incorrecto. La respuesta correcta era: ' + correctAnswer;
                 feedbackContainer.style.backgroundColor = 'var(--error-bg)';
                 feedbackContainer.style.color = 'var(--error-text)';
-                
+
                 incorrectAnswers.push({ question: questions[currentQuestionIndex].question, userAnswer: selectedOption, correctAnswer, tip: fallbackTip });
                 Array.from(optionsContainer.children).forEach(btn => { if (btn.textContent === correctAnswer) btn.classList.add('correct'); });
                 playSound('incorrect');
