@@ -4,111 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pragma Autoconocimiento</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Estilos Globales */
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #e0e6ff;
-        }
-
-        /* Colores Pragma */
-        :root {
-            --pragma-purple: #6429CD;
-            --pragma-purple-hover: #531dbc;
-            --pragma-dark-gray: #1d1d1b;
-            --error-bg: #FEE2E2;
-            --error-text: #991B1B;
-            --error-border: #FCA5A5;
-        }
-
-        /* Botón Principal (Ajustado al Design System) */
-        .duolingo-button {
-            background-color: var(--pragma-purple);
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px -2px rgba(100, 41, 205, 0.4);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
-            border: none;
-        }
-        .duolingo-button:hover {
-            transform: translateY(-2px);
-            background-color: var(--pragma-purple-hover);
-            box-shadow: 0 6px 20px -2px rgba(100, 41, 205, 0.5);
-        }
-        .duolingo-button:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 10px -2px rgba(100, 41, 205, 0.4);
-        }
-
-        /* Input de Texto (Ajustado al Design System 'Inputs.jpg') */
-        .custom-input {
-            background-color: white;
-            border: 1px solid #E5E7EB;
-            border-radius: 0.75rem;
-            padding: 0.875rem 1rem;
-            font-size: 14px;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        .custom-input::placeholder {
-            color: #9282B6;
-        }
-        .custom-input:focus {
-            outline: none;
-            border-color: var(--pragma-purple);
-            box-shadow: 0 0 0 3px rgba(100, 41, 205, 0.2);
-        }
-
-        /* Tarjeta de Juego (Ajustado al Design System 'Card.png') */
-        .custom-card {
-            background-color: white;
-            border-radius: 1rem;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-            border: 1px solid #F3F4F6;
-        }
-
-        /* Tarjeta de Bienvenida (Glassmorphism - SIN CAMBIOS) */
-        .glassmorphism-card {
-            background: rgba(255, 255, 255, 0.11);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.1), inset 0 0 36px 18px rgba(255, 255, 255, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
+        body { font-family: 'Poppins', sans-serif; background-color: #e0e6ff; }
+        :root { --pragma-purple: #6429CD; --pragma-purple-hover: #531dbc; --pragma-dark-gray: #1d1d1b; --error-bg: #FEE2E2; --error-text: #991B1B; --error-border: #FCA5A5; }
+        .duolingo-button { background-color: var(--pragma-purple); color: white; padding: 0.75rem 1.5rem; border-radius: 9999px; font-weight: 600; box-shadow: 0 4px 15px -2px rgba(100, 41, 205, 0.4); transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; border: none; }
+        .duolingo-button:hover { transform: translateY(-2px); background-color: var(--pragma-purple-hover); box-shadow: 0 6px 20px -2px rgba(100, 41, 205, 0.5); }
+        .duolingo-button:active { transform: translateY(1px); box-shadow: 0 2px 10px -2px rgba(100, 41, 205, 0.4); }
+        .custom-input { background-color: white; border: 1px solid #E5E7EB; border-radius: 0.75rem; padding: 0.875rem 1rem; font-size: 14px; transition: border-color 0.2s, box-shadow 0.2s; }
+        .custom-input::placeholder { color: #9282B6; }
+        .custom-input:focus { outline: none; border-color: var(--pragma-purple); box-shadow: 0 0 0 3px rgba(100, 41, 205, 0.2); }
+        .custom-card { background-color: white; border-radius: 1rem; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); border: 1px solid #F3F4F6; }
+        .glassmorphism-card { background: rgba(255, 255, 255, 0.11); backdrop-filter: blur(28px); -webkit-backdrop-filter: blur(28px); border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.5), inset 0 -1px 0 rgba(255, 255, 255, 0.1), inset 0 0 36px 18px rgba(255, 255, 255, 0.2); position: relative; overflow: hidden; }
         .glassmorphism-card::before, .glassmorphism-card::after { content: ''; position: absolute; }
         .glassmorphism-card::before { top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent); }
         .glassmorphism-card::after { top: 0; left: 0; width: 1px; height: 100%; background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), transparent, rgba(255, 255, 255, 0.3)); }
-
-        /* Barra de Progreso */
         .progress-bar-container { background-color: #e0e6ff; border-radius: 9999px; height: 12px; width: 100%; overflow: hidden; }
         .progress-bar { height: 100%; width: 0%; background-color: var(--pragma-purple); border-radius: 9999px; transition: width 0.5s ease-in-out; }
-
-        /* Botones de Opción (Estilos de estado refinados) */
         .option-button { background-color: white; border: 2px solid #e1e6f0; color: var(--pragma-dark-gray); padding: 1rem; border-radius: 0.75rem; font-weight: 500; transition: background-color 0.2s, border-color 0.2s; text-align: left; width: 100%; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); }
         .option-button:hover { border-color: var(--pragma-purple); }
         .option-button.correct { background-color: #F0FFF4; border-color: #9AE6B4; color: #276749; box-shadow: 0 2px 4px rgba(72, 187, 120, 0.2); }
         .option-button.incorrect { background-color: var(--error-bg); border-color: var(--error-border); color: var(--error-text); box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2); }
-
-        /* Modal de Mensajes */
         .modal { background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(5px); }
         .modal-content { background-color: white; border-radius: 1rem; padding: 2rem; box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); }
-
-        /* Estilos de Foco y Autocompletado */
         button:focus { outline: none; box-shadow: 0 0 0 3px rgba(100, 41, 205, 0.4); }
         .option-button:focus { outline: none; box-shadow: 0 0 0 2px var(--pragma-purple); border-color: var(--pragma-purple); }
         input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active { -webkit-box-shadow: 0 0 0px 1000px white inset !important; box-shadow: 0 0 0px 1000px white inset !important; -webkit-text-fill-color: var(--pragma-dark-gray) !important; }
-
-        /* Logo SVG (usado por el logo grande) */
         .pragma-logo-svg .cls-1 { fill: var(--pragma-purple); }
         .pragma-logo-svg .cls-2 { fill: var(--pragma-dark-gray); }
     </style>
@@ -138,23 +62,13 @@
             <button id="startButton" type="submit" class="duolingo-button w-full">Iniciar Test</button>
         </form>
     </div>
-
+    
     <div id="gameScreen" class="hidden flex-col items-center justify-center max-w-xl w-full p-6 sm:p-8 custom-card relative">
         <div class="w-full flex items-center justify-between mb-6">
             <div class="h-6 w-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.26 35.43" aria-label="Logo de Pragma">
-                    <style>.cls-1{fill:#1d1d1b;}.cls-2{fill:#6429cd;}</style>
-                    <path class="cls-1" d="M22.27,21.11V4.18c0-.09.08-.17.17-.17h2.78c.09,0,.17.07.17.17v2.09c0,.17.22.23.31.09.99-1.66,2.86-2.52,4.45-2.52.49,0,.91.04,1.36.14h.06v3.23l-.1-.04c-.52-.19-.98-.27-1.6-.27-2.94,0-4.48,2.92-4.48,5.81v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17"/>
-                    <path class="cls-1" d="M100.86,21.28c-.09,0-.17-.08-.17-.17v-9.97c0-2.89-1.25-4.61-3.34-4.61-2.83,0-4.65,2.43-4.65,6.19v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17v-9.97c0-2.89-1.24-4.61-3.31-4.61-2.8,0-4.69,2.49-4.69,6.19v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17V4.18c0-.09.08-.17.17-.17h2.78c.09,0,.17.07.17.17v1.71c0,.16.2.23.3.1,1.11-1.47,2.86-2.33,4.84-2.33,2.34,0,4.2,1.16,5.17,3.21.06.13.24.13.3,0,1.04-2,3.1-3.22,5.5-3.22,3.72,0,6.12,2.76,6.12,7.03v10.42c0,.09-.08.17-.17.17h-2.78Z"/>
-                    <path class="cls-2" d="M74.78,2.55c0,1.41-1.16,2.55-2.58,2.55s-2.58-1.14-2.58-2.55,1.16-2.55,2.58-2.55,2.58,1.14,2.58,2.55"/>
-                    <path class="cls-2" d="M64.87,2.76c-5.47,0-9.91,4.38-9.91,9.78s4.44,9.78,9.91,9.78,9.91-4.38,9.91-9.78-4.44-9.78-9.91-9.78M64.95,19.34c-3.79,0-6.86-3.03-6.86-6.77s3.07-6.77,6.86-6.77,6.86,3.03,6.86,6.77-3.07,6.77-6.86,6.77"/>
-                    <path class="cls-2" d="M68.04,22.03c-3.75,0-6.79,3-6.79,6.7s3.04,6.7,6.79,6.7,6.79-3,6.79-6.7-3.04-6.7-6.79-6.7M68.09,32.63c-2.18,0-3.95-1.74-3.95-3.9s1.77-3.9,3.95-3.9,3.95,1.74,3.95,3.9-1.77,3.9-3.95,3.9"/>
-                    <rect class="cls-1" x=".01" y="3.38" width="2.9" height="24.31"/>
-                    <path class="cls-1" d="M9.24,3.35C4.14,3.35,0,7.43,0,12.47s4.14,9.11,9.24,9.11,9.24-4.08,9.24-9.11S14.34,3.35,9.24,3.35M9.31,18.81c-3.53,0-6.4-2.82-6.4-6.31s2.86-6.31,6.4-6.31,6.4,2.83,6.4,6.31-2.86,6.31-6.4,6.31"/>
-                    <rect class="cls-1" x="48.52" y="3.35" width="2.9" height="18.27"/>
-                    <path class="cls-1" d="M42.19,21.64c5.1,0,9.24-4.08,9.24-9.11s-4.14-9.11-9.24-9.11-9.24,4.08-9.24,9.11,4.14,9.11,9.24,9.11M42.12,6.19c3.53,0,6.4,2.82,6.4,6.31s-2.86,6.31-6.4,6.31-6.4-2.83-6.4-6.31,2.86-6.31,6.4,6.31"/>
-                    <rect class="cls-1" x="122.35" y="3.36" width="2.9" height="18.27"/>
-                    <path class="cls-1" d="M116.02,21.65c5.1,0,9.24-4.08,9.24-9.11s-4.14-9.11-9.24-9.11-9.24,4.08-9.24,9.11,4.14,9.11,9.24,9.11M115.95,6.19c3.53,0,6.4,2.82,6.4,6.31s-2.86,6.31-6.4,6.31-6.4-2.83-6.4-6.31,2.86-6.31,6.4,6.31"/>
+                 <svg class="pragma-logo-svg h-full w-full" id="Capa_1_Game" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1221.17 348.04">
+                    <g><path class="cls-2" d="m0,278.95V39.45h30.61v24.29c12.61-16.62,35.92-27.65,58.83-27.65,46.93,0,83.69,38.67,83.69,88.03s-36.76,88.03-83.69,88.03c-22.91,0-46.22-11.03-58.83-27.65v94.45H0ZM85.04,64.11c-32.92,0-56.8,25.24-56.8,60.01s23.89,60.01,56.8,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m210.84,208.79V39.45h30.61v29.08c8.42-20.21,29.3-30.76,46.65-30.76,4.81,0,8.93.42,13.36,1.36l.59.13v31.56l-1.01-.38c-5.04-1.87-9.58-2.64-15.65-2.64-28.85,0-43.94,28.67-43.94,56.99v84h-30.61Z"/><path class="cls-2" d="m407.84,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.93,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m979.72,208.79v-99.44c0-28.33-12.25-45.24-32.77-45.24-27.72,0-45.63,23.82-45.63,60.68v84h-30.61v-99.44c0-28.33-12.12-45.24-32.43-45.24-27.5,0-45.97,24.39-45.97,60.68v84h-30.61V39.45h30.61v23.83c10.53-17.08,29.15-27.19,50.37-27.19,24.13,0,43.05,12.62,52.16,34.71,9.62-21.46,30.71-34.71,55.49-34.71,36.44,0,59.99,27.04,59.99,68.89v103.81h-30.61Z"/><path class="cls-2" d="m1131.72,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.92,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/></g>
+                    <path class="cls-1" d="m660.43,211.68c36.54-12.71,62.81-47.23,62.81-87.74,0-30.67-15.06-57.91-38.23-74.85,1.86.44,3.79.69,5.79.69,13.86,0,25.1-11.14,25.1-24.89s-11.24-24.89-25.1-24.89-25.1,11.14-25.1,24.89c0,6.11,2.23,11.71,5.92,16.04-12.68-6.35-26.99-9.96-42.14-9.96-51.7,0-93.76,41.71-93.76,92.97s40.93,91.8,91.65,92.92c-24.63,10.43-41.93,34.68-41.93,62.86,0,37.67,30.91,68.32,68.9,68.32s68.9-30.65,68.9-68.32c0-35.64-27.67-64.97-62.81-68.04Zm-95.93-87.74c0-35.53,29.15-64.44,64.99-64.44s64.99,28.91,64.99,64.44-29.15,64.44-64.99,64.44-64.99-28.91-64.99-64.44Zm89.85,195.57c-22.13,0-40.13-17.85-40.13-39.79s18-39.79,40.13-39.79,40.13,17.85,40.13,39.79-18,39.79-40.13,39.79Z"/>
                 </svg>
             </div>
             <div class="progress-bar-container flex-grow ml-4">
@@ -162,7 +76,7 @@
             </div>
             <span id="questionCount" class="text-gray-600 text-md ml-4"></span>
         </div>
-
+        
         <h2 id="questionText" class="text-2xl font-bold text-gray-800 mb-8 text-center"></h2>
         <div id="optionsContainer" class="w-full grid grid-cols-1 gap-4"></div>
         <div id="feedbackContainer" class="mt-6 p-4 w-full text-center font-semibold rounded-lg hidden" role="alert" aria-live="polite"></div>
@@ -172,19 +86,9 @@
 
     <div id="resultsWrapper" class="hidden flex-col items-center justify-center w-full max-w-md">
         <div class="mb-4 h-12 w-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.26 35.43" aria-label="Logo de Pragma">
-                <style>.cls-1{fill:#1d1d1b;}.cls-2{fill:#6429cd;}</style>
-                <path class="cls-1" d="M22.27,21.11V4.18c0-.09.08-.17.17-.17h2.78c.09,0,.17.07.17.17v2.09c0,.17.22.23.31.09.99-1.66,2.86-2.52,4.45-2.52.49,0,.91.04,1.36.14h.06v3.23l-.1-.04c-.52-.19-.98-.27-1.6-.27-2.94,0-4.48,2.92-4.48,5.81v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17"/>
-                <path class="cls-1" d="M100.86,21.28c-.09,0-.17-.08-.17-.17v-9.97c0-2.89-1.25-4.61-3.34-4.61-2.83,0-4.65,2.43-4.65,6.19v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17v-9.97c0-2.89-1.24-4.61-3.31-4.61-2.8,0-4.69,2.49-4.69,6.19v8.4c0,.09-.08.17-.17.17h-2.78c-.09,0-.17-.08-.17-.17V4.18c0-.09.08-.17.17-.17h2.78c.09,0,.17.07.17.17v1.71c0,.16.2.23.3.1,1.11-1.47,2.86-2.33,4.84-2.33,2.34,0,4.2,1.16,5.17,3.21.06.13.24.13.3,0,1.04-2,3.1-3.22,5.5-3.22,3.72,0,6.12,2.76,6.12,7.03v10.42c0,.09-.08.17-.17.17h-2.78Z"/>
-                <path class="cls-2" d="M74.78,2.55c0,1.41-1.16,2.55-2.58,2.55s-2.58-1.14-2.58-2.55,1.16-2.55,2.58-2.55,2.58,1.14,2.58,2.55"/>
-                <path class="cls-2" d="M64.87,2.76c-5.47,0-9.91,4.38-9.91,9.78s4.44,9.78,9.91,9.78,9.91-4.38,9.91-9.78-4.44-9.78-9.91-9.78M64.95,19.34c-3.79,0-6.86-3.03-6.86-6.77s3.07-6.77,6.86-6.77,6.86,3.03,6.86,6.77-3.07,6.77-6.86,6.77"/>
-                <path class="cls-2" d="M68.04,22.03c-3.75,0-6.79,3-6.79,6.7s3.04,6.7,6.79,6.7,6.79-3,6.79-6.7-3.04-6.7-6.79-6.7M68.09,32.63c-2.18,0-3.95-1.74-3.95-3.9s1.77-3.9,3.95-3.9,3.95,1.74,3.95,3.9-1.77,3.9-3.95,3.9"/>
-                <rect class="cls-1" x=".01" y="3.38" width="2.9" height="24.31"/>
-                <path class="cls-1" d="M9.24,3.35C4.14,3.35,0,7.43,0,12.47s4.14,9.11,9.24,9.11,9.24-4.08,9.24-9.11S14.34,3.35,9.24,3.35M9.31,18.81c-3.53,0-6.4-2.82-6.4-6.31s2.86-6.31,6.4-6.31,6.4,2.83,6.4,6.31-2.86,6.31-6.4,6.31"/>
-                <rect class="cls-1" x="48.52" y="3.35" width="2.9" height="18.27"/>
-                <path class="cls-1" d="M42.19,21.64c5.1,0,9.24-4.08,9.24-9.11s-4.14-9.11-9.24-9.11-9.24,4.08-9.24,9.11,4.14,9.11,9.24,9.11M42.12,6.19c3.53,0,6.4,2.82,6.4,6.31s-2.86,6.31-6.4,6.31-6.4-2.83-6.4-6.31,2.86-6.31,6.4,6.31"/>
-                <rect class="cls-1" x="122.35" y="3.36" width="2.9" height="18.27"/>
-                <path class="cls-1" d="M116.02,21.65c5.1,0,9.24-4.08,9.24-9.11s-4.14-9.11-9.24-9.11-9.24,4.08-9.24,9.11,4.14,9.11,9.24,9.11M115.95,6.19c3.53,0,6.4,2.82,6.4,6.31s-2.86,6.31-6.4,6.31-6.4-2.83-6.4-6.31,2.86-6.31,6.4,6.31"/>
+             <svg class="pragma-logo-svg h-full w-full" id="Capa_1_Results" data-name="Capa 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1221.17 348.04">
+                <g><path class="cls-2" d="m0,278.95V39.45h30.61v24.29c12.61-16.62,35.92-27.65,58.83-27.65,46.93,0,83.69,38.67,83.69,88.03s-36.76,88.03-83.69,88.03c-22.91,0-46.22-11.03-58.83-27.65v94.45H0ZM85.04,64.11c-32.92,0-56.8,25.24-56.8,60.01s23.89,60.01,56.8,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m210.84,208.79V39.45h30.61v29.08c8.42-20.21,29.3-30.76,46.65-30.76,4.81,0,8.93.42,13.36,1.36l.59.13v31.56l-1.01-.38c-5.04-1.87-9.58-2.64-15.65-2.64-28.85,0-43.94,28.67-43.94,56.99v84h-30.61Z"/><path class="cls-2" d="m407.84,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.93,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/><path class="cls-2" d="m979.72,208.79v-99.44c0-28.33-12.25-45.24-32.77-45.24-27.72,0-45.63,23.82-45.63,60.68v84h-30.61v-99.44c0-28.33-12.12-45.24-32.43-45.24-27.5,0-45.97,24.39-45.97,60.68v84h-30.61V39.45h30.61v23.83c10.53-17.08,29.15-27.19,50.37-27.19,24.13,0,43.05,12.62,52.16,34.71,9.62-21.46,30.71-34.71,55.49-34.71,36.44,0,59.99,27.04,59.99,68.89v103.81h-30.61Z"/><path class="cls-2" d="m1131.72,212.15c-46.93,0-83.69-38.67-83.69-88.03s36.76-88.03,83.69-88.03c22.91,0,46.22,11.03,58.84,27.65v-24.29h30.61v169.34h-30.61v-24.29c-12.62,16.62-35.92,27.65-58.84,27.65Zm4.4-148.04c-32.58,0-57.14,25.8-57.14,60.01s24.57,60.01,57.14,60.01,56.8-25.24,56.8-60.01-23.89-60.01-56.8-60.01Z"/></g>
+                <path class="cls-1" d="m660.43,211.68c36.54-12.71,62.81-47.23,62.81-87.74,0-30.67-15.06-57.91-38.23-74.85,1.86.44,3.79.69,5.79.69,13.86,0,25.1-11.14,25.1-24.89s-11.24-24.89-25.1-24.89-25.1,11.14-25.1,24.89c0,6.11,2.23,11.71,5.92,16.04-12.68-6.35-26.99-9.96-42.14-9.96-51.7,0-93.76,41.71-93.76,92.97s40.93,91.8,91.65,92.92c-24.63,10.43-41.93,34.68-41.93,62.86,0,37.67,30.91,68.32,68.9,68.32s68.9-30.65,68.9-68.32c0-35.64-27.67-64.97-62.81-68.04Zm-95.93-87.74c0-35.53,29.15-64.44,64.99-64.44s64.99,28.91,64.99,64.44-29.15,64.44-64.99,64.44-64.99-28.91-64.99-64.44Zm89.85,195.57c-22.13,0-40.13-17.85-40.13-39.79s18-39.79,40.13-39.79,40.13,17.85,40.13,39.79-18,39.79-40.13,39.79Z"/>
             </svg>
         </div>
         <div class="w-full p-6 custom-card text-center">
